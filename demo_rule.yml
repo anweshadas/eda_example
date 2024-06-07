@@ -1,0 +1,15 @@
+---
+- name: Listen for events on a webhook
+  hosts: all
+
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 8000
+
+  rules:
+    - name: Say thank you
+      condition: event.payload.message == "42"
+      action:
+        run_playbook:
+          name: demo.yml
